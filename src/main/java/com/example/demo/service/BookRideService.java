@@ -43,10 +43,13 @@ public class BookRideService {
         this.mongoTemplate = mongoTemplate;
     }
 
+
+    // to book a ride with customer details
     public String bookRide(RideDetail rideDetail) {
-        // System.out.println("+++++++++++");
+        System.out.println("+++++++++++");
         RouteData routeData = routeDataRepository.findAll().get(0);
-   
+        System.out.println("++++++bgjfdh+++++");
+
 
         BookingDetail bookingDetail = new BookingDetail(rideDetail);
         Query query = new Query();
@@ -55,9 +58,10 @@ public class BookRideService {
         Vehicle availableVehicle = mongoTemplate.findOne(query, Vehicle.class);
 
         Customer customer=new Customer(rideDetail.customerDetail);
-        bookingDetail.customerId=customer.getId();
 
         customerRepository.save(customer);
+
+        bookingDetail.customerId=customer.getId();
 
         if (availableVehicle != null) {
 
@@ -75,6 +79,7 @@ public class BookRideService {
         return "no facilities available on your choice";
     }
 
+    // to update status of ride to take actions[waiting,started,ended]
     public String updateStatus(String bookedId, String status) {
         BookingDetail bookingDetail = bookRideRepository.findById(bookedId).orElse(null);
         if (bookingDetail != null) {
@@ -93,6 +98,7 @@ public class BookRideService {
         return "status updated";
     }
 
+    // to get rides booked by Id
     public BookingDetail getRideById(String bookedId) {
         BookingDetail rideById = bookRideRepository.findById(bookedId).orElse(null);
         
@@ -100,6 +106,7 @@ public class BookRideService {
     }
 
     
+    // to get all rides booked
     public List<BookingDetail> getAllRides() {
         List<BookingDetail> allRides = bookRideRepository.findAll();
         
@@ -107,6 +114,7 @@ public class BookRideService {
     }
 
     
+    // to get all customers
     public List<Customer> getAllCustomers() {
         List<Customer> listOfCustomers = customerRepository.findAll();
         

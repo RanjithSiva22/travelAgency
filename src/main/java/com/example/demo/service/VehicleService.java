@@ -15,7 +15,7 @@ import com.example.demo.payload.VehicleDetail;
 import com.example.demo.repository.BookRideRepository;
 import com.example.demo.repository.VehicleRepository;
 
-public class VehicalService {
+public class VehicleService {
 
    @Autowired
    public VehicleRepository vehicleRepository;
@@ -23,11 +23,12 @@ public class VehicalService {
    private MongoTemplate mongoTemplate;
     
 
-   public VehicalService(VehicleRepository vehicleRepository,MongoTemplate mongoTemplate){
+   public VehicleService(VehicleRepository vehicleRepository,MongoTemplate mongoTemplate){
         this.vehicleRepository=vehicleRepository;
         this.mongoTemplate=mongoTemplate;
     }
 
+    // add vehicle with driver details[ unable to add vechile with same num plate]
     public String addVehicle(VehicleDetail vehicalDetail){
         // Vehical veh = vehicleRepository.findOne({}).orElse(null);
         Query query = new Query();
@@ -43,6 +44,7 @@ public class VehicalService {
        return "vehicle already present";
     }
 
+    // to get vehicles by their type[cab,bike,auto]
     public List<Vehicle> getVehicleByType(String vehicletype){
         
         Query query = new Query();
@@ -53,6 +55,7 @@ public class VehicalService {
         return vehicles;
     }
 
+    // to get all vehicles in agency
     public List<Vehicle> getAllVehicles(){
       
         List<Vehicle> listOfVehicles=vehicleRepository.findAll();
@@ -60,6 +63,7 @@ public class VehicalService {
     }
 
 
+    // to get all drivers
     public List<Driver> getAllDrivers(){
         List<Vehicle> listOfVehicles=vehicleRepository.findAll();
         List<Driver> driversList= listOfVehicles.stream().map(vehicle ->  vehicle.getDriver()).toList();

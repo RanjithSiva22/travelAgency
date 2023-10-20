@@ -17,7 +17,7 @@ import com.example.demo.payload.VehicleDetail;
 
 import com.example.demo.repository.VehicleRepository;
 
-import com.example.demo.service.VehicalService;
+import com.example.demo.service.VehicleService;
 
 @RestController
 @RequestMapping("/uber")
@@ -31,7 +31,7 @@ public class VehicleController {
     @PostMapping("/addvehicle")
     public ResponseEntity<?> adddriver(@RequestBody VehicleDetail vehicalDetail){
          try {
-            VehicalService vehicleService = new VehicalService(vehicleRepository, mongoTemplate);
+            VehicleService vehicleService = new VehicleService(vehicleRepository, mongoTemplate);
             return new ResponseEntity<>(
             DataResponse.builder().data(vehicleService.addVehicle(vehicalDetail)).build(),
             HttpStatus.OK);
@@ -46,7 +46,7 @@ public class VehicleController {
     @GetMapping("/getVehicleByType/{vehicletype}")
     public ResponseEntity<?> adddriver(@PathVariable String vehicletype){
          try {
-            VehicalService vehicleService = new VehicalService(vehicleRepository, mongoTemplate);
+            VehicleService vehicleService = new VehicleService(vehicleRepository, mongoTemplate);
             return new ResponseEntity<>(
             DataResponse.builder().data(vehicleService.getVehicleByType(vehicletype)).build(),
             HttpStatus.OK);
@@ -60,7 +60,7 @@ public class VehicleController {
     @GetMapping("/getAllVehicles")
     public ResponseEntity<?> adddriver(){
          try {
-            VehicalService vehicleService = new VehicalService(vehicleRepository, mongoTemplate);
+            VehicleService vehicleService = new VehicleService(vehicleRepository, mongoTemplate);
             return new ResponseEntity<>(
             DataResponse.builder().data(vehicleService.getAllVehicles()).build(),
             HttpStatus.OK);
@@ -74,7 +74,7 @@ public class VehicleController {
     @GetMapping("/getAllDrivers")
     public ResponseEntity<?> getDrivers(){
          try {
-            VehicalService vehicleService = new VehicalService(vehicleRepository, mongoTemplate);
+            VehicleService vehicleService = new VehicleService(vehicleRepository, mongoTemplate);
             return new ResponseEntity<>(
             DataResponse.builder().data(vehicleService.getAllDrivers()).build(),
             HttpStatus.OK);
